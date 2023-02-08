@@ -56,14 +56,22 @@ def fibonacci_matrix(n):
         F_n = power(F, n-1)
         return F_n[0][0]
 
+def multiply_r(A, B):
+    C = [[0, 0], [0, 0]]
+    for i in range(2):
+        for j in range(2):
+            for k in range(2):
+                C[i][j] += A[i][k] * B[k][j]
+    return C
+
 def fibonacci_recurrence_matrix(n):
     if n <= 1:
         return n
     else:
         F = [[1, 1], [1, 0]]
-        F_n = multiply(F, [[1, 1], [1, 0]])
-        for i in range(2, n):
-            F_n = multiply(F_n, F)
+        F_n = [[1, 0], [0, 1]]
+        for i in range(n):
+            F_n = multiply_r(F_n, F)
         return F_n[0][0]
 
 def fibonacci_closed_form(n):
@@ -120,7 +128,7 @@ if __name__ == '__main__':
     printTable(n, fibonacci_dynamic)
     n = int(input("\nEnter the n: "))
     print("\nFibonacci sequence Matrix recurrence")
-    printTable(n, fibonacci_recurrence_matrix)
+    printTable(n-1, fibonacci_recurrence_matrix)
     n = int(input("\nEnter the n: "))
     print("\nFibonacci sequence Matrix exponentiation")
     printTable(n, fibonacci_matrix)
