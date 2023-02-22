@@ -158,16 +158,16 @@ if __name__ == '__main__':
     bubble_sort_times = []
 
     for arr in unsorted_arr_for_b:
-        bubble_sort_times.append(time_execution(bubble_sort, arr))
+        bubble_sort_times.append(time_execution(bubble_sort, arr.copy()))
 
     for arr in unsorted_arr_for_q:
-        quick_sort_times.append(time_execution(quick_sort, arr))
+        quick_sort_times.append(time_execution(quick_sort, arr.copy()))
 
     for arr in unsorted_arr_for_m:
-        merge_sort_times.append(time_execution(merge_sort, arr))
+        merge_sort_times.append(time_execution(merge_sort, arr.copy()))
 
     for arr in unsorted_arr_for_h:
-        heap_sort_times.append(time_execution(heap_sort, arr))
+        heap_sort_times.append(time_execution(heap_sort, arr.copy()))
 
     # Plot the results
     plot_results(n_values, quick_sort_times, 'Quick sort','Quick sort')
@@ -192,12 +192,12 @@ if __name__ == '__main__':
     heap_sort_times = []
 
     for arr in unsorted_arr_for_q:
-        quick_sort_times.append(time_execution(quick_sort, arr))
+        quick_sort_times.append(time_execution(quick_sort, arr.copy()))
 
     for arr in unsorted_arr_for_m:
-        merge_sort_times.append(time_execution(merge_sort, arr))
+        merge_sort_times.append(time_execution(merge_sort, arr.copy()))
 
     for arr in unsorted_arr_for_h:
-        heap_sort_times.append(time_execution(heap_sort, arr))
+        heap_sort_times.append(time_execution(heap_sort, arr.copy()))
 
     plot_qs_ms_hs(n_values, quick_sort_times, merge_sort_times, heap_sort_times)
