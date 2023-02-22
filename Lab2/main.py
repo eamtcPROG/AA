@@ -84,14 +84,9 @@ def max_heapify(array_heapify, i):
 def bubble_sort(array_bubble_sort):
     n = len(array_bubble_sort)
 
-    # Traverse through all array elements
     for i in range(n):
-        # Last i elements are already in place
         for j in range(0, n - i - 1):
-            # Traverse the array from 0 to n-i-1
-            # Swap if the element found is greater than the next element
             if array_bubble_sort[j] > array_bubble_sort[j + 1]:
-                # Swap elements using a temporary variable
                 temp = array_bubble_sort[j]
                 array_bubble_sort[j] = array_bubble_sort[j + 1]
                 array_bubble_sort[j + 1] = temp
