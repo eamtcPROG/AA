@@ -1,0 +1,299 @@
+\addcontentsline{toc}{chapter}{Algorithms}
+
+
+
+\addcontentsline{toc}{section}{QuickSort}
+\section*{QuickSort}
+        \noindent Like Merge Sort, QuickSort is a Divide and Conquer algorithm. It picks an element as a pivot and      partitions the given array around the picked pivot. There are many different versions of quickSort that pick pivot in different ways. 
+                 \hfill\begin{itemize} 
+                    \item Always pick the first element as a pivot.
+                \item Always pick the last element as a pivot (implemented below)
+                \item Pick a random element as a pivot.
+                \item Pick median as the pivot.
+            \end{itemize}
+        The key process in quickSort is a partition(). The target of partitions is, given an array and an element x of an array as the pivot, put x at its correct position in a sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x. All this should be done in linear time.   
+        Quicksort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. For this reason, it is sometimes called partition-exchange sort.[4] The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting.
+
+Quicksort is a comparison sort, meaning that it can sort items of any type for which a "less-than" relation (formally, a total order) is defined. Most implementations of quicksort are not stable, meaning that the relative order of equal sort items is not preserved.
+
+    
+Mathematical analysis of quicksort shows that, on average, the algorithm takes O($n\log n$) comparisons to sort n items. In the worst case, it makes O($n^2$) comparisons.\\
+\noindent Code:
+
+\begin{verbatim}
+            def partition(array, low, high):
+         
+            # Choose the rightmost element as pivot
+            pivot = array[high]
+         
+            # Pointer for greater element
+            i = low - 1
+         
+            # Traverse through all elements
+            # compare each element with pivot
+            for j in range(low, high):
+                if array[j] <= pivot:
+                    # If element smaller than pivot is found
+                    # swap it with the greater element pointed by i
+                    i = i + 1
+         
+                    # Swapping element at i with element at j
+                    (array[i], array[j]) = (array[j], array[i])
+         
+            # Swap the pivot element with
+            # e greater element specified by i
+            (array[i + 1], array[high]) = (array[high], array[i + 1])
+         
+            # Return the position from where partition is done
+            return i + 1
+         
+        # Function to perform quicksort
+         
+         
+        def quick_sort(array, low, high):
+            if low < high:
+         
+                # Find pivot element such that
+                # element smaller than pivot are on the left
+                # element greater than pivot are on the right
+                pi = partition(array, low, high)
+         
+                # Recursive call on the left of pivot
+                quick_sort(array, low, pi - 1)
+         
+                # Recursive call on the right of pivot
+                quick_sort(array, pi + 1, high)
+         
+         
+        
+        array = [10, 7, 8, 9, 1, 5]
+        quick_sort(array, 0, len(array) - 1)
+         
+        print(f'Sorted array: {array}')
+
+\end{verbatim}\\
+
+\addcontentsline{toc}{section}{Mergesort}
+\section*{Mergesort}
+        Merge sort is a sorting algorithm that works by dividing an array into smaller subarrays, sorting each subarray, and then merging the sorted subarrays back together to form the final sorted array.
+
+       In simple terms, we can say that the process of merge sort is to divide the array into two halves, sort each half, and then merge the sorted halves back together. This process is repeated until the entire array is sorted.
+        
+        One thing that you might wonder is what is the specialty of this algorithm. We already have a number of sorting algorithms then why do we need this algorithm? One of the main advantages of merge sort is that it has a time complexity of O(n log n), which means it can sort large arrays relatively quickly. It is also a stable sort, which means that the order of elements with equal values is preserved during the sort.
+        
+        Merge sort is a popular choice for sorting large datasets because it is relatively efficient and easy to implement. It is often used in conjunction with other algorithms, such as quicksort, to improve the overall performance of a sorting routine.
+
+        Think of it as a recursive algorithm continuously splits the array in half until it cannot be further divided. This means that if the array becomes empty or has only one element left, the dividing will stop, i.e. it is the base case to stop the recursion. If the array has multiple elements, split the array into halves and recursively invoke the merge sort on each of the halves. Finally, when both halves are sorted, the merge operation is applied. Merge operation is the process of taking two smaller sorted arrays and combining them to eventually make a larger one.
+                         
+\noindent Code:
+
+\begin{verbatim}
+            def mergeSort(arr):
+            if len(arr) > 1:
+          
+                 # Finding the mid of the array
+                mid = len(arr)//2
+          
+                # Dividing the array elements
+                L = arr[:mid]
+          
+                # into 2 halves
+                R = arr[mid:]
+          
+                # Sorting the first half
+                mergeSort(L)
+          
+                # Sorting the second half
+                mergeSort(R)
+          
+                i = j = k = 0
+          
+                # Copy data to temp arrays L[] and R[]
+                while i < len(L) and j < len(R):
+                    if L[i] <= R[j]:
+                        arr[k] = L[i]
+                        i += 1
+                    else:
+                        arr[k] = R[j]
+                        j += 1
+                    k += 1
+          
+                # Checking if any element was left
+                while i < len(L):
+                    arr[k] = L[i]
+                    i += 1
+                    k += 1
+          
+                while j < len(R):
+                    arr[k] = R[j]
+                    j += 1
+                    k += 1
+          
+        # Code to print the list
+          
+          
+        def printList(arr):
+            for i in range(len(arr)):
+                print(arr[i], end=" ")
+            print()
+          
+          
+        
+        if __name__ == '__main__':
+            arr = [12, 11, 13, 5, 6, 7]
+            print("Given array is", end="\n")
+            printList(arr)
+            mergeSort(arr)
+            print("Sorted array is: ", end="\n")
+            printList(arr)
+        
+\end{verbatim}\\
+
+
+
+\addcontentsline{toc}{section}{HeapSort}
+\section*{HeapSort}
+
+        Heap sort is a comparison-based sorting technique based on Binary Heap data structure. It is similar to the selection sort where we first find the minimum element and place the minimum element at the beginning. Repeat the same process for the remaining elements.
+
+    \begin{itemize} 
+                \item Heap sort is an in-place algorithm. 
+                \item Its typical implementation is not stable, but can be made stable
+                \item Typically 2-3 times slower than well-implemented QuickSort.  The reason for slowness is a lack of locality of reference.
+            \end{itemize}
+        The heap sort algorithm has limited uses because Quicksort and Mergesort are better in practice. Nevertheless, the Heap data structure itself is enormously used.
+
+        What is meant by Heapify? 
+
+        Heapify is the process of creating a heap data structure from a binary tree represented using an array. It is used to create Min-Heap or Max-heap. Start from the last index of the non-leaf node whose index is given by n/2 – 1. Heapify uses recursion.
+
+    
+
+\noindent Code:
+
+\begin{verbatim}
+            def heapify(arr, N, i):
+            largest = i  # Initialize largest as root
+            l = 2 * i + 1     # left = 2*i + 1
+            r = 2 * i + 2     # right = 2*i + 2
+          
+            # See if left child of root exists and is
+            # greater than root
+            if l < N and arr[largest] < arr[l]:
+                largest = l
+          
+            # See if right child of root exists and is
+            # greater than root
+            if r < N and arr[largest] < arr[r]:
+                largest = r
+          
+            # Change root, if needed
+            if largest != i:
+                arr[i], arr[largest] = arr[largest], arr[i]  # swap
+          
+                # Heapify the root.
+                heapify(arr, N, largest)
+          
+        # The main function to sort an array of given size
+          
+          
+        def heapSort(arr):
+            N = len(arr)
+          
+            # Build a maxheap.
+            for i in range(N//2 - 1, -1, -1):
+                heapify(arr, N, i)
+          
+            # One by one extract elements
+            for i in range(N-1, 0, -1):
+                arr[i], arr[0] = arr[0], arr[i]  # swap
+                heapify(arr, i, 0)
+          
+          
+        
+        if __name__ == '__main__':
+            arr = [12, 11, 13, 5, 6, 7]
+          
+            # Function call
+            heapSort(arr)
+            N = len(arr)
+          
+            print("Sorted array is")
+            for i in range(N):
+                print("%d" % arr[i], end=" ")
+        
+\end{verbatim}\\
+
+
+\addcontentsline{toc}{section}{Cocktail Sort}
+\section*{Cocktail Sort}
+     Cocktail Sort is a variation of Bubble sort. The Bubble sort algorithm always traverses elements from left and moves the largest element to its correct position in the first iteration and second-largest in the second iteration and so on. Cocktail Sort traverses through a given array in both directions alternatively. Cocktail sort does not go through the unnecessary iteration making it efficient for large arrays.
+
+    Cocktail sorts break down barriers that limit bubble sorts from being efficient enough on large arrays by not allowing them to go through unnecessary iterations on one specific region (or cluster) before moving onto another section of an array.
+    Algorithm: 
+     \begin{enumerate} 
+                \item The first stage loops through the array from left to right, just like the Bubble Sort. During the loop, adjacent items are compared and if the value on the left is greater than the value on the right, then values are swapped. At the end of the first iteration, the largest number will reside at the end of the array.
+                \item The second stage loops through the array in opposite direction- starting from the item just before the most recently sorted item, and moving back to the start of the array. Here also, adjacent items are compared and are swapped if required.
+            \end{enumerate}
+
+\noindent Code:
+
+\begin{verbatim}
+            def cocktailSort(a):
+            n = len(a)
+            swapped = True
+            start = 0
+            end = n-1
+            while (swapped == True):
+         
+                # reset the swapped flag on entering the loop,
+                # because it might be true from a previous
+                # iteration.
+                swapped = False
+         
+                # loop from left to right same as the bubble
+                # sort
+                for i in range(start, end):
+                    if (a[i] > a[i + 1]):
+                        a[i], a[i + 1] = a[i + 1], a[i]
+                        swapped = True
+         
+                # if nothing moved, then array is sorted.
+                if (swapped == False):
+                    break
+         
+                # otherwise, reset the swapped flag so that it
+                # can be used in the next stage
+                swapped = False
+         
+                # move the end point back by one, because
+                # item at the end is in its rightful spot
+                end = end-1
+         
+                # from right to left, doing the same
+                # comparison as in the previous stage
+                for i in range(end-1, start-1, -1):
+                    if (a[i] > a[i + 1]):
+                        a[i], a[i + 1] = a[i + 1], a[i]
+                        swapped = True
+         
+                # increase the starting point, because
+                # the last stage would have moved the next
+                # smallest number to its rightful spot.
+                start = start + 1
+        
+                a = [5, 1, 4, 2, 8, 0, 2]
+                cocktailSort(a)
+                print("Sorted array is:")
+                for i in range(len(a)):
+                    print("% d" % a[i])
+
+\end{verbatim}\\
+
+
+
+
+
+
+
+
