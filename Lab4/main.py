@@ -10,7 +10,6 @@ def DFS(graph, start):
 
     while stack:
         node = stack.pop()
-        # print(node, end=" ")
 
         if node not in visited:
             visited.add(node)
@@ -25,7 +24,6 @@ def BFS(graph, start):
 
     while queue:
         node = queue.popleft()
-        # print(node, end=" ")
 
         for neighbour in graph[node]:
             if neighbour not in visited:
