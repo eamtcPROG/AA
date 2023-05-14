@@ -120,6 +120,20 @@ def main():
                             floyd_tree_sparse[node][neighbor] == sparse_graph[node][neighbor]} for node in sparse_graph},
                     "Sparse Graph - Floyd's Algorithm Graph Tree")
 
+    dijkstra_times_spare = []
+    floyd_times_spare = []
+
+    for n in num_nodes:
+        graph = generate_sparse_random_graph(n, sparsity_factor=0.3)
+        start_time = time.time()
+        dijkstra(graph, 0)
+        dijkstra_times_spare.append(time.time() - start_time)
+
+        start_time = time.time()
+        floyd(graph)
+        floyd_times_spare.append(time.time() - start_time)
+
+    plot_comparison(num_nodes, dijkstra_times, floyd_times)
 
 if __name__ == "__main__":
     main()
