@@ -50,7 +50,15 @@ def generate_random_graph(num_nodes, max_weight=10):
             graph[i][j] = weight
             graph[j][i] = weight
     return graph
-
+def generate_sparse_random_graph(num_nodes, max_weight=10, sparsity_factor=0.3):
+    graph = {i: {} for i in range(num_nodes)}
+    for i in range(num_nodes):
+        for j in range(i+1, num_nodes):
+            if random.random() < sparsity_factor:
+                weight = random.randint(1, max_weight)
+                graph[i][j] = weight
+                graph[j][i] = weight
+    return graph
 def plot_comparison(nodes, dijkstra_times, floyd_times):
     plt.plot(nodes, dijkstra_times, label="Dijkstra")
     plt.plot(nodes, floyd_times, label="Floyd")
@@ -97,6 +105,20 @@ def main():
     draw_graph_tree({node: {neighbor: sample_graph[node][neighbor] for neighbor in sample_graph[node] if
                             floyd_tree[node][neighbor] == sample_graph[node][neighbor]} for node in sample_graph},
                     "Floyd's Algorithm Graph Tree")
+
+    # For sparse graph
+    sparse_graph = generate_sparse_random_graph(10, sparsity_factor=0.3)
+    draw_graph_tree(sparse_graph, "Sparse Graph for Dijkstra and Floyd Algorithms")
+
+    dijkstra_tree_sparse = dijkstra(sparse_graph, 0)
+    draw_graph_tree({node: {neighbor: sparse_graph[node][neighbor] for neighbor in sparse_graph[node] if
+                            dijkstra_tree_sparse[neighbor] == dijkstra_tree_sparse[node] + sparse_graph[node][neighbor]} for node in
+                     sparse_graph}, "Sparse Graph - Dijkstra's Algorithm Graph Tree")
+
+    floyd_tree_sparse = floyd(sparse_graph)
+    draw_graph_tree({node: {neighbor: sparse_graph[node][neighbor] for neighbor in sparse_graph[node] if
+                            floyd_tree_sparse[node][neighbor] == sparse_graph[node][neighbor]} for node in sparse_graph},
+                    "Sparse Graph - Floyd's Algorithm Graph Tree")
 
 
 if __name__ == "__main__":
